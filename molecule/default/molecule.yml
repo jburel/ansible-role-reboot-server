@@ -8,11 +8,20 @@ lint: |
     ansible-lint
     flake8
 platforms:
-  - name: instance
+  - name: rockylinux9
     image: eniocarboni/docker-rockylinux-systemd:9
     image_version: latest
     privileged: true
     command: /sbin/init
+    cgroupns_mode: host
+    tmpfs:
+      - /sys/fs/cgroup
+    groups:
+      - extra_options
+  - name: ubuntu2204
+    image: eniocarboni/docker-ubuntu-systemd:22.04
+    command: /sbin/init
+    privileged: true
     cgroupns_mode: host
     tmpfs:
       - /sys/fs/cgroup
